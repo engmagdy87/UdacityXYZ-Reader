@@ -2,31 +2,15 @@ package com.example.xyzreader.ui;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.support.design.widget.CollapsingToolbarLayout;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import com.squareup.picasso.Picasso;
-
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ShareCompat;
-import android.support.v7.graphics.Palette;
 import android.text.Html;
 import android.text.format.DateUtils;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +18,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
+import com.squareup.picasso.Picasso;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
+import static com.example.xyzreader.R.drawable.logo;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -147,7 +137,6 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
-        TextView titleView = (TextView) mRootView.findViewById(R.id.article_title);
         TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
         bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
@@ -155,7 +144,11 @@ public class ArticleDetailFragment extends Fragment implements
         if (mCursor != null) {
 
             collapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
-            Picasso.with(getActivity()).load(mCursor.getString(ArticleLoader.Query.PHOTO_URL)).into(mPhotoView);
+            Picasso
+                    .with(getActivity())
+                    .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
+                    .placeholder(logo)
+                    .into(mPhotoView);
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
             Date publishedDate = parsePublishedDate();
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
