@@ -40,6 +40,7 @@ import java.util.GregorianCalendar;
 public class ArticleListActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
     CollapsingToolbarLayout collapsingToolbarLayout;
+    Context context = this;
     private static final String TAG = ArticleListActivity.class.toString();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
@@ -185,9 +186,11 @@ public class ArticleListActivity extends AppCompatActivity implements
                                 + "<br/>" + " by "
                                 + mCursor.getString(ArticleLoader.Query.AUTHOR)));
             }
+
             holder.thumbnailView.setImageUrl(
                     mCursor.getString(ArticleLoader.Query.THUMB_URL),
                     ImageLoaderHelper.getInstance(ArticleListActivity.this).getImageLoader());
+
             holder.thumbnailView.setAspectRatio(mCursor.getFloat(ArticleLoader.Query.ASPECT_RATIO));
         }
 

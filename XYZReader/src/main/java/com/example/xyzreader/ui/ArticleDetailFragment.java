@@ -18,9 +18,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.xyzreader.R;
 import com.example.xyzreader.data.ArticleLoader;
-import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -144,10 +145,13 @@ public class ArticleDetailFragment extends Fragment implements
         if (mCursor != null) {
 
             collapsingToolbarLayout.setTitle(mCursor.getString(ArticleLoader.Query.TITLE));
-            Picasso
+
+            Glide
                     .with(getActivity())
                     .load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-                    .placeholder(logo)
+                    .apply(new RequestOptions()
+                            .override(400, 200)
+                            .placeholder(logo))
                     .into(mPhotoView);
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
             Date publishedDate = parsePublishedDate();
