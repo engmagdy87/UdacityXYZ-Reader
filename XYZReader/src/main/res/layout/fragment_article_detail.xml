@@ -44,7 +44,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/nested_sv"
         android:layout_width="match_parent"
         android:nestedScrollingEnabled="true"
@@ -81,7 +81,7 @@
             android:textSize="@dimen/detail_body_text_size"
             android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"

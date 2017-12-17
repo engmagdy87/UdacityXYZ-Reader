@@ -8,7 +8,9 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v4.app.ShareCompat;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -118,6 +120,13 @@ public class ArticleDetailFragment extends Fragment implements
             }
         });
 
+        Toolbar toolbar = mRootView.findViewById(R.id.app_bar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavUtils.navigateUpFromSameTask(getActivity());
+            }
+        });
         bindViews();
         return mRootView;
     }
